@@ -1,0 +1,25 @@
+# Reusable job called from ci.yml so the check is reported as
+# "ci / Run tests", the name the org ruleset on main requires.
+name: test
+
+on:
+  workflow_call: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: Test
+        run: go test ./...

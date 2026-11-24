@@ -1,0 +1,21 @@
+# The ducksify org "main" ruleset (id 7642143) requires the check named
+# "ci / Run tests". GitHub only reports that exact context when a job
+# with id `ci` calls a reusable workflow whose job is named "Run tests".
+# Confirmed on ducksify/ghs3 (check-run name "ci / Run tests", app
+# github-actions, id 15368). A direct job named "Run tests" is reported
+# as just "Run tests" and does not satisfy the ruleset.
+# Do not change the org ruleset in this PR.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [dev]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/test.yml
